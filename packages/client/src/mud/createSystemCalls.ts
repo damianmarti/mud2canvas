@@ -18,9 +18,7 @@ export function createSystemCalls(
 
   const abiCoder = new ethers.utils.AbiCoder();
 
-  const paint = async (x: number, y: number, color: number) => {
-    // const encodedKey = abiCoder.encode(["uint32", "uint32"], [x, y]);
-    // const key = ethers.utils.keccak256(encodedKey);
+  const paint = async (x: number, y: number, color: string) => {
     await worldSend("paint", [x, y, color]);
   };
 

@@ -5,18 +5,12 @@ import { ethers } from "ethers";
 
 export const App = () => {
   const {
-    components: { Counter },
     systemCalls: { paint },
     network: { storeCache },
   } = useMUD();
 
   const [paintedCanvas, setPaintedCanvas] = useState();
-  const [color, setColor] = useState("red");
-
-  const colorMapping = {
-    "red": 1,
-    "blue": 2,
-  };
+  const [color, setColor] = useState("#ff0000");
 
   const reverseColorMapping = {
     0: "white",
@@ -24,9 +18,9 @@ export const App = () => {
     2: "blue",
   };
 
-  const paintCanvas = async (x, y) => {
+  const paintCanvas = async (x: number, y: number) => {
     try {
-      paint(x, y, colorMapping[color]);
+      paint(x, y, color);
     } catch (e) {
       console.log("paint failed", e);
     }
@@ -67,7 +61,7 @@ export const App = () => {
               {[...Array(cols)].map((e, j) => (
                 <td
                   key={j}
-                  style={{ border: "1px solid black", minWidth: 20, height: 20, backgroundColor: paintedCanvas && reverseColorMapping[paintedCanvas[i][j]] }}
+                  style={{ cursor: "pointer", border: "1px solid black", minWidth: 20, height: 20, backgroundColor: paintedCanvas && paintedCanvas[i][j] }}
                   onClick={() => {
                     paintCanvas(i, j);
                   }}
@@ -77,25 +71,8 @@ export const App = () => {
           ))}
         </tbody>
       </table>
-      <p style={{ backgroundColor: color }}>Current Color</p>
-      <button
-        style={{ backgroundColor: "red" }}
-        type="button"
-        onClick={() => {
-          setColor("red");
-        }}
-      >
-        Select
-      </button>
-      <button
-        style={{ backgroundColor: "blue" }}
-        type="button"
-        onClick={() => {
-          setColor("blue");
-        }}
-      >
-        Select
-      </button>
+      <p style={{ marginBottom: 4}}><strong>Select paint color:</strong></p>
+      <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
     </>
   );
 };
