@@ -61,9 +61,9 @@ export const App = () => {
               {[...Array(cols)].map((e, j) => (
                 <td
                   key={j}
-                  style={{ cursor: "pointer", border: "1px solid black", minWidth: 20, height: 20, backgroundColor: paintedCanvas && paintedCanvas[i][j] }}
+                  style={{ cursor: "pointer", border: "1px solid black", minWidth: 20, height: 20, backgroundColor: paintedCanvas && paintedCanvas[j][i] }}
                   onClick={() => {
-                    paintCanvas(i, j);
+                    paintCanvas(j, i);
                   }}
                 ></td>
               ))}
@@ -71,7 +71,7 @@ export const App = () => {
           ))}
         </tbody>
       </table>
-      <p style={{ marginBottom: 4}}><strong>Select paint color:</strong></p>
+      <p style={{ marginBottom: 4 }}><strong>Select paint color:</strong></p>
       <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
     </>
   );
